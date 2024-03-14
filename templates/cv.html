@@ -1,0 +1,1455 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    
+
+    <title>Mi Currículum</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+
+       
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa; /* Fondo claro */
+            color: #333;
+        }
+        
+        .page-wrapper {
+            width: 80%;
+            max-width: 612px;
+            margin: auto;
+        }
+        
+        header {
+            background-color: #293241; background-color: #343a40; /* Cabecera oscura */
+            color: #ffffff;
+            padding: 20px 0;
+            text-align: center;
+            margin-bottom: 30px;
+            margin-top: 10px;
+        }
+
+        
+        
+        header h1, header span {
+            font-size: 28px;
+        }
+        
+        .container {
+            background-color: #ffffff; /* Fondo blanco para el contenido principal */
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Sombra suave para el contenedor */
+            overflow: hidden;
+            display: flex;
+        }
+        
+    
+
+
+
+        .sidebar, .main-content {
+            padding: 10px;
+        }
+        
+        .sidebar {
+            width: 40%;
+        }
+        
+        .sidebar ul.info-list li {
+            font-size: 14px;
+            color: white !important;
+            font-weight: bold;
+        }
+        
+        .main-content {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .perfil-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid white;
+            display: block;
+            margin: 0 auto;
+            position: absolute;
+            top: 9%;
+            left: 33%;
+            z-index: 999;
+            transform: scale(1.6);
+        }
+        
+        .info-list, .skill-container {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .info-list li, .skill {
+            margin-bottom: 10px;
+        }
+        
+        .skill-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        
+        .skill {
+            width: calc(50% - 10px);
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+        
+        @media (min-width: 768px) {
+            .skill {
+                width: calc(33.33% - 10px);
+            }
+        }
+        
+        .skill-level {
+            background-color: #ddd;
+            border: 1px solid #ccc;
+            height: 10px;
+            width: 55px;
+            transition: width 0.5s ease;
+            box-sizing: border-box;
+            border-color: #999;
+        }
+        
+        .skill-level > div {
+            height: 100%;
+            color: black;
+            line-height: 10px;
+            padding-left: 20px;
+            background-color: #4caf50;
+            transition: width 0.5s ease;
+        }
+        
+        button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        
+        button:hover {
+            background-color: white;
+            color: black;
+            border: 2px solid #4CAF50;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        
+        footer {
+            margin-bottom: 20px;
+            margin-top: 30px;
+            width: 80%;
+            max-width: 612px;
+            margin: auto;
+            background-color: #343a40; /* Pie de página oscuro */
+            color: #ffffff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+
+        
+        
+        .skill-title {
+            font-size: 10px;
+        }
+
+        .titulo-habilidades {
+            position: relative;
+            top: 10px; /* Ajusta este valor para mover hacia abajo */
+        }
+        
+
+        .align-right {
+            display: block;
+            margin-left: auto;
+            margin-right: 6px;
+        }
+        
+        .qr-container {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto;
+            margin-bottom: 10px;
+        }
+        
+        .qr-container .align-right {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        @media print {
+            .perfil-img {
+                left: 30mm;
+                top: 10mm;
+            }
+            @page {
+                size: letter;
+                margin: 5mm;
+            }
+        
+            .external-container,
+            .external-container-new,
+            .external-container-extra,
+            .external-container-Header-Footer,
+            .external-container-QR,
+            .external-container-additional,
+            button {
+                display: none !important;
+            }
+            /* Ocultar la tabla */
+            .table {
+                display: none !important;
+            }
+            /* Ocultar los elementos con IDs input-valor y input-texto */
+            #input-valor, #input-texto {
+                display: none !important;
+            }
+
+
+            /* Fijar el footer en la parte inferior de la página */
+            footer {
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+            }
+
+            
+            body, html {
+                font-size: 9pt;
+                line-height: 1.15;
+                color: #333;
+            }
+        
+            .page-wrapper {
+                width: 100%;
+                max-width: 100%;
+                padding: 3mm;
+            }
+        
+            header, .sidebar, footer {
+                background-color: #293241;
+                color: white;
+            }
+        
+            .container, .sidebar, .main-content {
+                padding: 5mm;
+                margin: 0;
+            }
+        
+            h1, h2, h3, p, li {
+                margin: 1mm 0;
+                padding: 0;
+            }
+            }
+            h1, h2, h3 {
+                color: #007bff; /* Azul para títulos */
+            }
+            .qr-container {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 150px;
+                height: 150px;
+            }
+        
+            .qr-container img {
+                width: 100%;
+                height: auto;
+                display: block;
+            }
+        .btn {
+            background-color: #007bff; /* Botones azules */
+            color: white;
+        }
+        
+        .contenedores-flex {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            margin: 20px 0;
+        }
+        
+        .external-container, .external-container-new {
+            position: absolute;
+            width: 150px;
+            height: 420px;
+            background-color: #ccc;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .external-container {
+            left: 10px;
+            top: 10px;
+        }
+        
+        .external-container-new {
+            left: 190px;
+            top: 10px;
+        }
+        
+        .internal-container, .internal-container-new {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .internal-container input,
+        .internal-container-new input,
+        .internal-container button,
+        .internal-container-new button {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        
+        .external-container-extra {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            width: 330px;
+            background-color: #ccc;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .internal-container-extra1, .internal-container-extra2 {
+            flex-basis: 48%;
+            margin-bottom: 20px;
+        }
+        
+        .internal-container-extra1 input, .internal-container-extra1 button,
+        .internal-container-extra2 input, .internal-container-extra2 button {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        
+        .external-container-Header-Footer {
+            position: absolute;
+            left: 10px;
+            top: 165px;
+            width: 150px;
+            background-color: #ccc;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        .external-container-QR {
+            position: absolute;
+            left: 190px;
+            top: 165px;
+            width: 150px;
+            background-color: #ccc;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        .internal-container-QR {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .internal-container-QR p {
+            margin-bottom: 10px;
+        }
+        
+        .internal-container-QR button {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        
+        .internal-container-Header-Footer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .internal-container-Header-Footer p {
+            margin-bottom: 0px;
+        }
+        
+        .internal-container-Header-Footer button {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        
+        header, footer {
+            transition: background-color 0.5s ease;
+        }
+        
+        .external-container-additional {
+            position: absolute;
+            width: 100px;
+            height: 50px;
+            left: 990px;
+            top: 10px;
+            background-color: #ccc;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .titulo-habilidades {
+            color: white;
+            font-size: 20px !important;
+            padding-left: 55px;
+        }
+        
+        .skill-container .skill:first-child h3,
+        .skill-container .skill:nth-child(2) h3,
+        .skill-container .skill:nth-child(3) h3,
+        .skill-container .skill:nth-child(4) h3,
+        .skill-container .skill:nth-child(5) h3,
+        .skill-container .skill:nth-child(6) h3 {
+            color: white;
+            font-size: 11px;
+        }
+        
+        .info-list li.email {
+            overflow: hidden;
+        }
+        
+        .info-list li.email span {
+            font-size: 10px;
+            transition: font-size 0.5s;
+        }
+        
+        .editable {
+            transition: box-shadow 0.5s ease;
+        }
+        
+        .active {
+            box-shadow: 0 0 10px #666;
+        }
+        
+        /* Estilos para el objetivo profesional en el sidebar */
+        #tituloHojaVida, #resumenProfesional {
+            color: white; /* Cambia el color del texto a blanco */
+            margin-top: 60px; /* Aumenta este valor para bajar el texto */
+            /* Otros estilos que quieras aplicar, como tamaño de fuente, etc. */
+        }
+        
+        #edadActualizada {
+            color: white;
+        }
+        
+        /* Estilos para el contenedor externo del botón QR */
+.external-container-QR {
+    width: 160px; /* Ajusta el ancho a tu preferencia */
+    height: 105px; /* Ajusta la altura a tu preferencia */
+    /* Otros estilos que puedas tener para este contenedor */
+    left: 180px; /* Ajusta esta cantidad para moverlo hacia la izquierda */
+}
+
+
+
+/* Estilos para el botón dentro del contenedor QR */
+.external-container-QR button {
+    width: 100%;
+    padding: 10px;
+    margin-top: -5px; /* Margen negativo para mover el botón hacia arriba */
+    margin-bottom: 0px;
+    
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+
+#fechaContenedorAdicional {
+    font-size: 12px; /* Tamaño de la fuente */
+    margin-top: 50px; /* Espacio por encima del texto para empujarlo hacia abajo */
+    margin-bottom: 50px; /* Aumenta este valor para más espacio en la parte inferior */
+    color: #495057; /* Color del texto */
+    background-color: #f8f9fa; /* Color de fondo */
+    border: 1px solid #dee2e6; /* Borde del contenedor */
+    
+    border-radius: 5px; /* Bordes redondeados */
+    box-shadow: 0 2px 4px rgba(0,0,0,.1); /* Sombra suave */
+    text-align: center; /* Alineación del texto */
+    transition: all 0.3s ease; /* Transición suave para efectos hover */
+    width: 100%;
+}
+
+#fechaContenedorAdicional:hover {
+    color: #007bff; /* Cambio de color al pasar el cursor */
+    background-color: #e9ecef; /* Cambio de color de fondo al pasar el cursor */
+    border-color: #007bff; /* Cambio de color del borde al pasar el cursor */
+    transform: scale(1.05); /* Efecto de escala al pasar el cursor */
+}
+
+
+#fechaContenedorAdicional:hover {
+    color: #007bff; /* Cambio de color al pasar el cursor */
+    background-color: #e9ecef; /* Cambio de color de fondo al pasar el cursor */
+    border-color: #007bff; /* Cambio de color del borde al pasar el cursor */
+    transform: scale(1.05); /* Efecto de escala al pasar el cursor */
+}
+
+
+#tituloHabilidades,
+#descripcionHabilidades,
+#listaHabilidades {
+    color: white; /* Cambia el color de texto a blanco */
+}
+
+#listaHabilidades li {
+    color: white; /* Cambia el color de texto de los elementos de lista a blanco */
+}
+
+#listaProgramas li {
+    color: white; /* Cambia el color de texto a blanco */
+}
+
+h1, h2, h3, h4 {
+    color: #007bff; /* Azul para títulos */
+}
+
+#descripcionHabilidades {
+    font-size: 10px;
+    padding-top: 20px; /* Ajusta este valor para mover hacia abajo */
+}
+
+#listaHabilidades h1 {
+    font-size: 14px;
+    margin-top: 5px; /* Ajusta este valor según sea necesario */
+}
+
+
+
+/* En tu CSS */
+.competencias-clave {
+    font-size: 14px; /* Ajusta este valor según sea necesario */
+}
+
+#listaHabilidades > li > ul, #listaProgramas {
+    padding-left: 10px; /* Reduce el espacio interior izquierdo */
+    list-style-type: disc; /* Mantiene las viñetas */
+    font-size: 10px; /* Mantiene el tamaño de la fuente */
+}
+
+#listaHabilidades ul li, #listaProgramas li {
+    list-style-type: disc; /* Restaura las viñetas */
+    text-align: justify; /* Mantiene el texto justificado */
+}
+
+
+.lista-personalizada {
+    padding-left: 10px !important; /* Reduce el espacio interior izquierdo y usa !important para garantizar la prioridad */
+    list-style-type: disc; /* Mantiene las viñetas */
+}
+
+.lista-personalizada li {
+    text-align: justify; /* Mantiene el texto justificado */
+}
+
+#tituloProgramas {
+    margin-top: 20px; /* Ajusta este valor para subir la sección */
+    font-size: 14px; /* Mantiene el tamaño de fuente */
+}
+
+#listaProgramas {
+    margin-top: 5px; /* Espacio entre el título y la lista */
+}
+
+#tituloProgramas {
+    transform: translateY(-20px); /* Mueve el título hacia arriba */
+    font-size: 14px;
+}
+
+#listaProgramas {
+    margin-top: -10px; /* Ajusta este valor según sea necesario */
+}
+
+
+
+
+
+
+#input-valor {
+    position: relative; /* O absolute si lo necesitas */
+    top: -1090px; /* Ajusta según necesites */
+    left: 10px; /* Ajusta según necesites */
+    /* Otros estilos específicos del elemento */
+    width: 150px; /* Ajusta el ancho según tus necesidades */
+}
+
+#input-texto {
+    position: relative; /* O absolute si lo necesitas */
+    top: -1090px; /* Ajusta según necesites */
+    left: 25px; /* Ajusta según necesites */
+    /* Otros estilos específicos del elemento */
+    width: 160px; /* Ajusta el ancho según tus necesidades */
+}
+
+#btn-anadir {
+    position: relative; /* O absolute si lo necesitas */
+    top: -1040px; /* Ajusta según necesites */
+    left: -280px; /* Ajusta según necesites */
+    /* Otros estilos específicos del elemento */
+    width: 260px; /* Ajusta el ancho según tus necesidades */
+}
+
+#tabla-datos {
+    position: relative;
+    top: -1040px;
+    left: 40px;
+    margin-top: 20px; /* Espacio superior */
+    margin-bottom: 20px; /* Espacio inferior */
+    width: 140px; /* Cambia este valor según lo necesites */
+}
+
+
+
+
+.table {
+    width: 100%; /* Ancho completo */
+    margin-bottom: 1rem; /* Espacio inferior */
+    color: #212529; /* Color del texto */
+    background-color: #fff; /* Color de fondo de la tabla */
+    border-collapse: collapse; /* Colapso de bordes */
+}
+
+.table th,
+.table td {
+    padding: 0.75rem; /* Padding */
+    vertical-align: top; /* Alineación vertical */
+    border-top: 1px solid #dee2e6; /* Borde superior */
+}
+
+.table th {
+    background-color: #f8f9fa; /* Color de fondo de la cabecera */
+    font-weight: bold; /* Peso de la fuente */
+}
+
+.table thead th {
+    vertical-align: bottom; /* Alineación vertical en la cabecera */
+    border-bottom: 2px solid #dee2e6; /* Borde inferior en la cabecera */
+}
+
+.table tbody + tbody {
+    border-top: 2px solid #dee2e6; /* Borde superior para tablas con más de un cuerpo */
+}
+
+.table-sm th,
+.table-sm td {
+    padding: 0.3rem; /* Padding para tablas pequeñas */
+}
+
+.table-bordered {
+    border: 1px solid #dee2e6; /* Borde */
+}
+
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #dee2e6; /* Borde para celdas */
+}
+
+.table-bordered thead th,
+.table-bordered thead td {
+    border-bottom-width: 2px; /* Borde inferior en la cabecera */
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05); /* Fondo rayado */
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.075); /* Fondo al pasar el ratón */
+}
+
+.table-primary,
+.table-primary > th,
+.table-primary > td {
+    background-color: #b8daff; /* Color de fondo */
+}
+
+.table-primary th,
+.table-primary td,
+.table-primary thead th,
+.table-primary tbody + tbody {
+    border-color: #7abaff; /* Color del borde */
+}
+
+.table-hover .table-primary:hover {
+    background-color: #9fcdff; /* Color de fondo al pasar el ratón */
+}
+
+.table-hover .table-primary:hover > td,
+.table-hover .table-primary:hover > th {
+    background-color: #9fcdff; /* Color de fondo al pasar el ratón */
+}
+
+/* Otros estilos específicos del elemento */
+
+
+.btn-eliminar {
+    border: 2px solid white;
+    transition: transform 0.3s ease;
+    width: 40px; /* Ancho del botón */
+    height: 40px; /* Alto del botón */
+    padding: 0; /* Ajusta o elimina el padding para mantener las dimensiones */
+    display: flex; /* Utiliza Flexbox para alinear el contenido */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    text-align: center; /* Asegura el texto centrado */
+    left: 30px; /* Ajusta según necesites */
+    margin-left: 12px; /* Mueve el botón 10px a la izquierda */
+    margin-top: 10px; /* Mueve el botón 10px hacia arriba */
+    /* Resto de tus estilos... */
+}
+
+.btn-eliminar:hover {
+    transform: scale(1.1);
+}
+
+.contenedor-grafico {
+    width: 600px; /* Aumenta según sea necesario */
+    height: 500px; /* Aumenta según sea necesario */
+    position: relative;
+    top: -1430px;
+    left: 990px;
+    transform: scale(0.5); /* Reduce el tamaño al 80% */
+    transform-origin: top left; /* Punto desde el que se realiza la escala */
+}
+
+
+.contenedor-grafico iframe {
+    width: 100%; /* El iframe ocupa todo el ancho del contenedor */
+    height: 100%; /* El iframe ocupa todo el alto del contenedor */
+    border: none; /* Opcional: para eliminar el borde del iframe */
+}
+
+<div class="external-container-additional">
+    <div class="internal-container-additional">
+        <p id="fechaContenedorAdicional" class="text-muted">Fecha: </p>
+        <!-- Aquí puedes agregar más elementos según necesites -->
+    </div>
+</div>
+
+
+
+
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var emailElement = document.querySelector('.info-list li.email span');
+    
+            function ajustarTamanoCorreo() {
+                if (emailElement) {
+                    var parentWidth = emailElement.parentNode.offsetWidth;
+                    var fontSize = parseFloat(window.getComputedStyle(emailElement, null).getPropertyValue('font-size'));
+    
+                    // Ajusta el tamaño de la fuente solo si el correo se desborda
+                    while (emailElement.scrollWidth > parentWidth && fontSize > 10) {
+                        fontSize--;
+                        emailElement.style.fontSize = fontSize + 'px';
+                    }
+                }
+            }
+    
+            ajustarTamanoCorreo();
+        });
+    </script>
+        
+</head>
+
+
+<body>
+    
+    <div class="page-wrapper">
+        <header>
+            <h1 contenteditable="true"><span style="font-size: 28px;margin-left: 120px;">Emmanuel Casarrubias</span></h1>
+            <h2 contenteditable="true" style="position: relative; top: -5px; left: 59px;"><span style="font-size: 20px;">Desarrollador de Software</span></h2>
+
+        </header>
+        
+        
+    
+        <div class="container">
+            
+            <div class="sidebar">
+                <br>
+                <div id="edadActualizada" contenteditable="true" style="font-size: 11px;margin-top: -15px; margin-left: 80px;">30 Años</div>
+                
+
+                <p id="resumenProfesional" contenteditable style="font-size: 12px;margin-top: 10px;; text-align: justify;">Soy un entusiasta desarrollador de software, analítico y con gusto por el modelado y control de sistemas no lineales, estadístico y físico matemático apasionado por la ciencia. </p>
+                
+
+                <img src="/static/Foto_Perfil/Foto_001.jpg" alt="Foto de Perfil" class="perfil-img">
+                
+                <div style="margin-top: 30px;">
+                    <ul class="info-list">
+                        <ul>
+                            <li><span id="telefono" contenteditable="true" style="font-size: 10px;">+52 7222 88 1852</span></li>
+                            <li><span id="email" contenteditable="true" style="font-size: 10px;">emmanuel.casarrubias.j@gmail.com</span></li>
+                            <li><span id="direccion" contenteditable="true" style="font-size: 10px;">Miguel Hidalgo, CDMX, C.P. 11530</span></li>
+                        </ul>
+                    </ul>
+                
+                    <h2 class="titulo-habilidades" contenteditable="true">Habilidades</h2>
+                    <p id="descripcionHabilidades" contenteditable="true" style="font-size: 10px;">Desarrollador de software con experiencia en frontend y backend.</p>
+                    
+                    <div class="skill-container">
+                        <div class="skill">
+                            <h3 class="skill-title" contenteditable="true">Python</h3>
+                            <div class="skill-level" id="htmlSkill" contenteditable="true"><div></div></div>
+                        </div>
+                        <div class="skill">
+                            <h3 class="skill-title" contenteditable="true">HTML</h3>
+                            <div class="skill-level" id="cssSkill" contenteditable="true"><div></div></div>
+                        </div>
+                        <div class="skill">
+                            <h3 class="skill-title" contenteditable="true">CSS</h3>
+                            <div class="skill-level" id="pythonSkill" contenteditable="true"><div></div></div>
+                        </div>
+                        <div class="skill">
+                            <h3 class="skill-title" contenteditable="true">SQL</h3>
+                            <div class="skill-level" id="newSkill1" contenteditable="true"><div></div></div>
+                        </div>
+                        <div class="skill">
+                            <h3 class="skill-title" contenteditable="true">Backend</h3>
+                            <div class="skill-level" id="newSkill2" contenteditable="true"><div></div></div>
+                        </div>
+                        <div class="skill">
+                            <h3 class="skill-title" contenteditable="true">Frontend</h3>
+                            <div class="skill-level" id="newSkill3" contenteditable="true"><div></div></div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                
+                
+                
+               
+                <ul id="listaHabilidades" style="list-style-type: none; padding-left: 0; font-size: 10px;">
+                    <li>
+                        <h3 style="font-size: 14px; margin-top: 10px;" contenteditable="true">Habilidades Técnicas:</h3>
+                        <ul style="padding-left: 20px;">
+                            <li contenteditable="true"><strong>Python:</strong> Experiencia desarrollando diversas aplicaciones, scripts, así como análisis de datos estadísticos e indicadores.</li>
+                            <li contenteditable="true"><strong>HTML:</strong> Experiencia en construcción de estructuras web accesibles, escalables y usables, mediante HTML y HTML5.</li>
+                            <li contenteditable="true"><strong>CSS:</strong> Conocimiento para diseñar interfaces atractivas y responsivas.</li>
+                            <li contenteditable="true"><strong>SQL:</strong> Competencia en diseño y gestión de bases de datos relacionales.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <h3 style="font-size: 14px; margin-top: 20px;" contenteditable="true">Competencias Clave:</h3>
+                        <ul style="padding-left: 20px;">
+                            <li contenteditable="true"><strong>Backend Development:</strong> Capacidad para crear soluciones backend robustas con Django y Flask.</li>
+                            <li contenteditable="true"><strong>Frontend Development:</strong> Habilidad para diseñar interfaces interactivas con AngularJS, ReactJS y Vue.js.</li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                
+            
+                <h3 id="tituloProgramas" style="font-size: 14px; margin-top: 40px;" contenteditable="true">Programas y Paqueterías</h3>
+                <ul id="listaProgramas" class="lista-personalizada" style="font-size: 10px; margin-left: 10px;">
+
+                    <li contenteditable="true">Matlab</li>
+                    <li contenteditable="true">Simulink</li>
+                    <li contenteditable="true">Netsuite</li>
+                    <li contenteditable="true">Banner</li>
+                    <!-- Puedes agregar más elementos de lista si es necesario -->
+                </ul>
+                
+            
+                
+
+                <div class="qr-container" style="position: relative; top: 0px; right: 0px;">
+                    <img id="imagenQR" src="" alt="Código QR" class="align-right" style="display: none; width: 150px; height: 150px;">
+                </div>
+                
+                
+
+
+            </div>
+
+            <div class="main-content">
+                <section id="hoja-de-vida">
+
+                    <h3 id="objetivoprofesional" contenteditable="true" style="font-size: 20px;">Objetivo Profesional</h3>
+                    <p contenteditable="true" style="font-size: 12px; text-align: justify;">Desarrollar software enfocado  en frontend y backend, aplicando mis habilidades en Python, HTML, CSS y SQL para crear soluciones web eficientes y mejorar la experiencia de los usuarios.</p>
+
+                    <h3 id="experienciaLaboral" contenteditable="true" style="font-size: 20px;">Experiencia Laboral</h3>
+
+                    <!-- Lista de experiencias laborales -->
+                    <ul>
+                        <li>
+                            <div id="nombreEmpresa1" contenteditable="true" style="font-size: 14px;">
+                                <strong>Universidad Tecnológica de México UNITEC</strong>
+                            </div>
+                            <div contenteditable="true" style="font-size: 12px;">
+                                <strong>Ingeniero de Datos</strong> (Enero 2022- Actual)
+                            </div>
+                            <p id="descripcionResponsabilidades" contenteditable="true" style="font-size: 10px; text-align: justify;">
+                                Desarrollo y ejecución de algoritmos de control avanzados usando Python. Utilización de Pandas y NumPy para análisis y manejo de datos, Matplotlib para visualización de estadísticas, métricas e indicadores, y SQL para la gestión de bases de datos.
+                            </p>
+                            
+                        </li>
+                        
+                        <!-- Agrega más elementos de lista similares según sea necesario -->
+                        <li>
+                            <div id="nombreEmpresa2" contenteditable="true" style="font-size: 14px;">
+                                <strong>Tecnológico Nacional de México</strong>
+                            </div>
+                            <div id="tituloPuesto" contenteditable="true" style="font-size: 12px;">
+                                <strong>Desarrollador de Sistemas</strong> (Enero 2021-Diciembre 2022)
+                            </div>
+                            <p id="descripcionResponsabilidades2" contenteditable="true" style="font-size: 10px; text-align: justify;">Desarrollo y diseño de sistemas integrales de gestión ERP y CRM, orientados al área de Sistemas, utilizando tecnologías avanzadas como Python para la lógica de backend y Django y Flask como frameworks. Este proceso incluye la elaboración de bases de datos sofisticadas y el diseño de interfaces de usuario interactivas, empleando HTML y CSS para el frontend, asegurando así una experiencia de usuario óptima y una gestión de datos eficiente.</p>
+                        </li>
+
+                        <!-- Agrega más elementos de lista similares según sea necesario -->
+                        <li>
+                            <div id="nombreEmpresa3" contenteditable="true" style="font-size: 14px;">
+                                <strong>CONAHCYT-UNAM</strong>
+                            </div>
+                            <div id="tituloPuesto" contenteditable="true" style="font-size: 12px;">
+                                <strong>Investigador</strong> (Enero 2019-Diciembre 2021)
+                            </div>
+                            <p id="descripcionResponsabilidades2" contenteditable="true" style="font-size: 10px; text-align: justify;">Diseño e implementación de algoritmos avanzados para el control de datos, utilizando técnicas de aprendizaje profundo y redes neuronales. Este proceso se lleva a cabo mediante el uso de herramientas como MATLAB y Simulink, así como lenguajes de programación como Python y Julia. Además, se integra el control difuso y el control por modos deslizantes de orden superior, para alcanzar una mayor precisión y eficiencia en la gestión y análisis de datos.</p>
+                        </li>
+                        
+                        <!-- ... -->
+                    </ul>
+            
+                    <h3 id="educacion" contenteditable="true" style="font-size: 20px;text-align: justify;">Educación</h3>
+                    <!-- Lista de educación y formación académica -->
+                    <ul id="listaEducacion">
+                        <li contenteditable="true" style="font-size: 12px;">
+                            <span contenteditable="true"><strong>Universidad Nacional Autónoma de México</strong></span> - Maestría en Control (Dic. 2021)
+                        </li>
+                        <!-- Más educación si es necesario -->
+                        <li contenteditable="true" style="font-size: 12px;">
+                            <span contenteditable="true"><strong>Tecnológico Nacional de México</strong></span> - Ingeniería en Mecatrónica (Dic. 2019)
+                        </li>
+                        <!-- Más educación si es necesario -->
+                        <li contenteditable="true" style="font-size: 12px;">
+                            <span contenteditable="true"><strong>Centro de Estudios Tecnológico Industrial y de Servicios</strong></span> - Técnico en Sistemas Computacionales (Dic. 2011)
+                        </li>
+                        <!-- Más educación si es necesario -->
+                        
+                    </ul>
+
+
+            
+                    <h4 id="tituloLogros" contenteditable="true" style="font-size: 20px;text-align: justify;">Logros y Certificaciones</h4>
+                    <ul id="listaLogros">
+                        <li style="font-size: 12px;">TOEFL INGLES B2 (2019)</li>
+                        <li style="font-size: 12px;">Publicación de Articulo Científico (Modelado de Datos y Sistemas) en JCYTA CENIDET (Jun. 2023)</li>
+                        <!-- Puedes agregar más elementos de lista si es necesario -->
+                    </ul>
+                    <p style="font-size: 12px; text-align: center; margin-top: 140px;">
+                        Ver publicación: 
+                        <a href="https://jcyta.cenidet.tecnm.mx/revistas/jcyta/10-Vol_6_Num_1_Enero-Junio_2023.pdf" target="_blank">
+                            https://jcyta.cenidet.tecnm.mx/revistas/jcyta/10-Vol_6_Num_1_Enero-Junio_2023.pdf
+                        </a><br>
+                        Emmanuel Casarrubias. Enero - Junio 2023, Vol. 6, No. 1., Page 332.
+                    </p>
+                    
+                    
+                    
+                </section>
+                <!-- Otras secciones si las hay -->
+            </div>
+            
+        </div>
+    </div>
+
+    <footer>
+        <p id="contacto" contenteditable="true" style="font-size: 16px; text-align: center;">
+            <span style="display: block; margin-top: 20px;">
+                <a href="https://github.com/EmmanuelCasarrubias" target="_blank" style="color: inherit; text-decoration: none;">
+                    https://github.com/EmmanuelCasarrubias
+                </a>
+            </span>
+        </p>
+        <!-- Otros contenidos del footer... -->
+    </footer>
+    
+    
+    
+    
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var colores = ["#083452","#017805","#2c024d"];
+        var contadorColor = 0;
+    
+        // Establecer el color de fondo inicial del sidebar
+        var sidebar = document.querySelector('.sidebar');
+        sidebar.style.backgroundColor = colores[0]; // Primer color de la lista
+
+        document.getElementById("colorBtnExtra").onclick = function() {
+            contadorColor = (contadorColor + 1) % colores.length; // Actualiza primero el contador
+            sidebar.style.transition = "background-color 1s ease";
+            sidebar.style.backgroundColor = colores[contadorColor]; // Luego aplica el color
+        };
+
+        var htmlSkill = document.getElementById('htmlSkill');
+        var cssSkill = document.getElementById('cssSkill');
+        var pythonSkill = document.getElementById('pythonSkill');
+        var newSkill1 = document.getElementById('newSkill1');
+        var newSkill2 = document.getElementById('newSkill2');
+        var newSkill3 = document.getElementById('newSkill3');
+
+        function setInitialWidth(skillElement, width) {
+            skillElement.querySelector('div').style.width = width;
+        }
+
+        if (htmlSkill) {
+            setInitialWidth(htmlSkill, '85%');
+            htmlSkill.addEventListener('mouseover', function() {
+                this.querySelector('div').style.width = '100%';
+            });
+            htmlSkill.addEventListener('mouseout', function() {
+                setInitialWidth(this, '85%');
+            });
+        }
+
+        if (cssSkill) {
+            setInitialWidth(cssSkill, '85%');
+            cssSkill.addEventListener('mouseover', function() {
+                this.querySelector('div').style.width = '100%';
+            });
+            cssSkill.addEventListener('mouseout', function() {
+                setInitialWidth(this, '85%');
+            });
+        }
+
+        if (pythonSkill) {
+            setInitialWidth(pythonSkill, '85%');
+            pythonSkill.addEventListener('mouseover', function() {
+                this.querySelector('div').style.width = '100%';
+            });
+            pythonSkill.addEventListener('mouseout', function() {
+                setInitialWidth(this, '85%');
+            });
+        }
+
+        if (newSkill1) {
+            setInitialWidth(newSkill1, '85%');
+            newSkill1.addEventListener('mouseover', function() {
+                this.querySelector('div').style.width = '100%';
+            });
+            newSkill1.addEventListener('mouseout', function() {
+                setInitialWidth(this, '85%');
+            });
+        }
+
+        if (newSkill2) {
+            setInitialWidth(newSkill2, '85%');
+            newSkill2.addEventListener('mouseover', function() {
+                this.querySelector('div').style.width = '100%';
+            });
+            newSkill2.addEventListener('mouseout', function() {
+                setInitialWidth(this, '85%');
+            });
+        }
+
+        if (newSkill3) {
+            setInitialWidth(newSkill3, '85%');
+            newSkill3.addEventListener('mouseover', function() {
+                this.querySelector('div').style.width = '100%';
+            });
+            newSkill3.addEventListener('mouseout', function() {
+                setInitialWidth(this, '85%');
+            });
+        }
+    });
+</script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Resto de tu código...
+
+        document.getElementById('nuevoGenerarQR').addEventListener('click', function() {
+            var uniqueParam = new Date().getTime();
+            fetch('/generar_qr?_=' + uniqueParam)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('imagenQR').src = data;
+                    document.getElementById('imagenQR').style.display = 'block';
+                });
+        });
+    });
+</script>
+
+
+
+
+
+
+
+<!-- Nuevo contenedor externo con dos contenedores internos -->
+<div class="external-container-extra">
+    <div class="internal-container-extra1">
+        <p>Cambiar Color</p>
+        <button id="colorBtnExtra" class="btn">Cambiar Color</button>
+    </div>
+    
+    <div class="internal-container-extra2">
+        <p>Imprimir CV</p>
+        <button id="printBtnExtra" class="btn" onclick="window.print();">Imprimir CV</button>
+    </div>
+</div>
+
+<!-- Nuevo contenedor externo para generar QR -->
+<div class="external-container-QR">
+    <div class="internal-container-QR">
+        <p>Generar QR</p>
+        <button id="nuevoGenerarQR" class="btn">Generar QR</button>
+    </div>
+</div>
+
+<!-- Nuevo contenedor para la tabla y el formulario -->
+<div class="external-container-tabla">
+    <!-- Formulario para añadir datos a la tabla -->
+    <form action="/add_celda" method="post">
+        <input type="number" name="valor" placeholder="Valor" id="input-valor" required>
+        <input type="text" name="texto" placeholder="Texto" id="input-texto" required>
+        <button type="submit" id="btn-anadir">Añadir a la Tabla</button>
+    </form>
+
+    <!-- Tabla para mostrar los datos -->
+    <table class="table table-bordered table-striped" id="tabla-datos">
+        <thead class="thead-dark">
+            <tr>
+                <th style="width: 50px;">ID</th>
+                <th style="width: 100px;">Valor</th>
+                <th style="width: 200px;">Texto</th>
+                <th style="width: 100px;">Acciones</th> <!-- Encabezado adicional para los botones de eliminar -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for celda in celdas %}
+            <tr>
+                <td>{{ celda.id }}</td>
+                <td>{{ celda.valor if celda.valor != 0 else "Vacío" }}</td>
+                <td>{{ celda.texto if celda.texto else "Vacío" }}</td>
+                <td>
+                    <form action="/eliminar_celda/{{ celda.id }}" method="post">
+                        <button type="submit" class="btn btn-danger btn-eliminar">X</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<!-- Nuevo contenedor externo para generar QR -->
+<div class="external-container-Header-Footer">
+    <div class="internal-container-Header-Footer">
+        <p>Cambiar Color HF</p>
+        <button id="CambiarColorHF" class="btn">Color HF</button>
+    </div>
+</div>
+
+
+
+
+
+
+<!-- Scripts JavaScript para la actualización de los datos -->
+<script>
+    function actualizarFechaNacimientoNuevo() {
+        var nuevaFechaNacimiento = document.getElementById("fechaNacimientoInputNew").value;
+        document.querySelector(".info-list li:nth-child(6)").innerHTML = "<strong>Edad.:</strong> " + nuevaFechaNacimiento;
+    }
+</script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var colores = ["#083452", "#017805", "#2c024d"];
+        var contadorColorHF = 0;
+
+        // Establecer el color de fondo inicial del encabezado y del pie de página
+        var header = document.querySelector('header');
+        var footer = document.querySelector('footer');
+        header.style.backgroundColor = colores[0]; // Primer color de la lista
+        footer.style.backgroundColor = colores[0]; // Primer color de la lista
+
+        document.getElementById("CambiarColorHF").addEventListener('click', function() {
+            contadorColorHF = (contadorColorHF + 1) % colores.length;
+            header.style.backgroundColor = colores[contadorColorHF];
+            footer.style.backgroundColor = colores[contadorColorHF];
+        });
+    });
+
+</script>
+
+<div class="external-container-additional">
+    <div class="internal-container-additional">
+        <p id="fechaContenedorAdicional" class="text-muted display-4">Fecha: </p>
+        <!-- Aquí puedes agregar más elementos según necesites -->
+    </div>
+</div>
+
+<script>
+    // Obtener el elemento donde se mostrará la fecha y hora
+    var fechaContenedor = document.getElementById("fechaContenedorAdicional");
+
+    // Función para obtener y mostrar la fecha y hora actual
+    function mostrarFechaYHora() {
+        // Crear un objeto de fecha y hora actual
+        var fechaHoraActual = new Date();
+
+        // Obtener la fecha y hora en formato legible
+        var fechaYHora = fechaHoraActual.toLocaleString();
+
+        // Mostrar la fecha y hora en el elemento HTML
+        fechaContenedor.textContent = "Fecha y hora: " + fechaYHora;
+    }
+
+    // Llamar a la función para mostrar la fecha y hora actual al cargar la página
+    mostrarFechaYHora();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+ 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Elementos relacionados con la hoja de vida
+        const hojaVidaElements = [
+            { id: "tituloHojaVida", action: "Nuevo título de la hoja de vida" },
+            { id: "resumenProfesional", action: "Nuevo resumen profesional" },
+            { id: "experienciaLaboral", action: "Nueva experiencia laboral" },
+            { id: "nombreEmpresa1", action: "Nuevo nombre de la empresa 1" },
+            { id: "descripcionResponsabilidades", action: "Nueva descripción de responsabilidades y logros" },
+            { id: "nombreEmpresa2", action: "Nuevo nombre de la empresa 2" },
+            { id: "tituloPuesto", action: "Nuevo título del puesto" },
+            { id: "listaEducacion", action: "Nueva lista de educación" },
+            { id: "tituloHabilidades", action: "Nuevo título de habilidades y competencias" },
+            { id: "descripcionHabilidades", action: "Nueva descripción de habilidades" },
+            { id: "tituloProgramas", action: "Nuevo título de programas y paqueterías" },
+            { id: "listaProgramas", action: "Nueva lista de programas y paqueterías" },
+            { id: "tituloLogros", action: "Nuevo título de logros y certificaciones" },
+            { id: "listaLogros", action: "Nueva lista de logros y certificaciones" }
+        ];
+    
+        // Manejar eventos para elementos relacionados con la hoja de vida
+        hojaVidaElements.forEach(function(element) {
+            const elementElement = document.getElementById(element.id);
+            elementElement.addEventListener("blur", function() {
+                const nuevoValor = elementElement.textContent.trim();
+                console.log(element.action + ":", nuevoValor);
+            });
+        });
+    
+        // Manejar eventos para elementos relacionados con el currículum y la información personal
+        const curriculumAndPersonalInfoElements = [
+            { selector: "header h1", action: "Nuevo título del currículum" },
+            { id: "contacto", action: "Nuevo contacto" },
+            "nombre",
+            "profesion",
+            "email",
+            "direccion",
+            "telefono",
+            "edadActualizada"
+        ];
+    
+        curriculumAndPersonalInfoElements.forEach(function(element) {
+            let elementElement = typeof element === "string" ? document.getElementById(element) : document.querySelector(element.selector);
+            elementElement.addEventListener("blur", function() {
+                const nuevoValor = elementElement.textContent.trim();
+                const action = typeof element === "string" ? "Nuevo " + element + ":" : element.action;
+                console.log(action, nuevoValor);
+            });
+        });
+    
+        // Manejar evento para el cambio de fecha de nacimiento
+        const fechaNacimientoInputNewElement = document.getElementById('fechaNacimientoInputNew');
+        fechaNacimientoInputNewElement.addEventListener('change', function() {
+            const fechaNacimiento = new Date(this.value);
+            const edad = calcularEdad(fechaNacimiento);
+            document.querySelector(".info-list li:nth-child(6)").innerHTML = "<strong>Edad:</strong> " + edad + " años";
+        });
+    
+        // Función para calcular la edad
+        function calcularEdad(fechaNacimiento) {
+            const diferencia = Date.now() - fechaNacimiento.getTime();
+            const edadFecha = new Date(diferencia);
+            return Math.abs(edadFecha.getUTCFullYear() - 1970);
+        }
+    });
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        const skillTitles = document.querySelectorAll(".skill-title");
+        const skillLevels = document.querySelectorAll(".skill-level");
+    
+        skillTitles.forEach(function(skillTitle) {
+            skillTitle.addEventListener("blur", function() {
+                const newSkillName = skillTitle.textContent.trim();
+                console.log("Nuevo nombre de habilidad:", newSkillName);
+            });
+        });
+    
+        skillLevels.forEach(function(skillLevel) {
+            skillLevel.addEventListener("blur", function() {
+                const newSkillLevel = skillLevel.textContent.trim();
+                console.log("Nuevo nivel de habilidad:", newSkillLevel);
+            });
+        });
+    });
+    
+
+
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var elementosEditables = document.querySelectorAll('[contenteditable="true"], #tituloHojaVida, #resumenProfesional');
+    
+        // Función para activar la edición y la animación
+        function activarEdicion(elemento) {
+            elemento.style.transition = "box-shadow 0.5s ease";
+    
+            elemento.addEventListener('click', function(event) {
+                event.stopPropagation(); // Evitar que el clic en el elemento propague al documento
+    
+                // Desactivar todos los elementos editables
+                elementosEditables.forEach(function(item) {
+                    if (item !== elemento) {
+                        item.style.boxShadow = "none";
+                        item.contentEditable = false;
+                    }
+                });
+    
+                elemento.style.boxShadow = "0 0 10px #666";
+                elemento.contentEditable = true;
+    
+                // Desactivar edición si se hace clic fuera del elemento
+                document.addEventListener('click', function(event) {
+                    if (!elemento.contains(event.target)) {
+                        elemento.style.boxShadow = "none";
+                        elemento.contentEditable = false;
+                        document.removeEventListener('click', arguments.callee); // Eliminar el evento de clic exterior
+                    }
+                });
+            });
+        }
+    
+        // Activar la edición y la animación para cada elemento editable
+        elementosEditables.forEach(function(elemento) {
+            activarEdicion(elemento);
+        });
+    });
+
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        var elementosEditables = document.querySelectorAll('.editable');
+    
+        elementosEditables.forEach(function(elemento) {
+            elemento.addEventListener('click', function(event) {
+                event.stopPropagation();
+    
+                // Desactivar todos los elementos editables
+                elementosEditables.forEach(function(item) {
+                    item.classList.remove('active');
+                });
+    
+                // Activar el elemento clicado
+                elemento.classList.add('active');
+    
+                // Desactivar edición si se hace clic fuera del elemento
+                document.addEventListener('click', function(event) {
+                    if (!elemento.contains(event.target)) {
+                        elemento.classList.remove('active');
+                        document.removeEventListener('click', arguments.callee);
+                    }
+                });
+            });
+        });
+    });
+    
+    
+    <script>
+        window.onload = function() {
+            const limite = "{{ request.args.get('limite') }}";
+            const boton = document.getElementById('btn-anadir');
+            boton.onclick = function() {
+                if (limite === 'True') {
+                    alert('No se pueden añadir más de 8 elementos');
+                }
+            };
+        };
+    </script>
+    
+    <!-- Añade esto al final del cuerpo de tu HTML -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    
+</script>
+
+
+<!-- Contenedor para el gráfico Plotly Dash -->
+<div class="contenedor-grafico">
+    <iframe src="/dash/"></iframe>
+</div>
+
+
+
+
+
+
+
+</body>
+</html>
