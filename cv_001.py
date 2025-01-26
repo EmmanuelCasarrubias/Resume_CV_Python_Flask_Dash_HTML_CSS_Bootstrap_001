@@ -1,20 +1,35 @@
-from flask import Flask
+from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
-
 import os
+import qrcode
+from datetime import datetime
+import time
+from dash import dcc, html, Dash
+from dash.dependencies import Input, Output
+import numpy as np
 
+# Configuración de Flask
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'tu_clave_secreta_aqui'
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'tu_clave_secreta_aqui')
+
+# Configuración de la base de datos SQLite
 basedir = os.path.abspath(os.path.dirname(__file__))
-database_path = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+database_path = f'sqlite:///{os.path.join(basedir, "data.sqlite")}'
+app.config['SQLALCHEMY_DATABASE_URI'] = database_path
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# Límite de celdas
+CELDA_LIMIT = 8
+
 db = SQLAlchemy(app)
 
 # Modelo para la tabla Celda
 class Celda(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    valor = db.Column(db.Integer, nullable=False)
-    texto = db.Column(db.String(80), nullable=False)
+    valor = db.Column(db.Integer, nullable=False, index=True)
+    texto = db.Column(db.String(80), nullable=False, index=True)
 
+# Inicializar celdas vacías en la base de datos
 def inicializar_celdas_vacias(n):
     if Celda.query.count() == 0:
         for _ in range(n):
@@ -29,12 +44,14 @@ def cv():
 
 @app.route('/add_celda', methods=['POST'])
 def add_celda():
-    limite_alcanzado = False
-    if Celda.query.count() < 8:
-        valor = request.form['valor']
-        texto = request.form['texto']
-        
-        # Buscar la primera celda vacía y actualizarla con los nuevos valores
+    try:
+        valor = int(request.form['valor'])
+        texto = str(request.form['texto'])
+    except ValueError:
+        flash('Valor debe ser un número entero y texto debe ser una cadena.')
+        return redirect(url_for('cv'))
+
+    if Celda.query.count() < CELDA_LIMIT:
         celda_vacia = Celda.query.filter_by(valor=0, texto="").first()
         if celda_vacia:
             celda_vacia.valor = valor
@@ -47,7 +64,6 @@ def add_celda():
             db.session.commit()
             flash('Celda añadida con éxito')
     else:
-        limite_alcanzado = True
         flash('Límite de celdas alcanzado. No se pueden añadir más celdas.')
 
     return redirect(url_for('cv'))
@@ -60,61 +76,60 @@ def eliminar_celda(celda_id):
         db.session.commit()
         flash('Celda eliminada con éxito')
 
-        # Verificar si quedan celdas en la base de datos
         if Celda.query.count() == 0:
-            inicializar_celdas_vacias(1)  # Si no quedan celdas, inicializar una vacía
-        
+            inicializar_celdas_vacias(1)
     else:
         flash('Celda no encontrada')
 
     return redirect(url_for('cv'))
 
+# Variable global para almacenar la ruta del QR code
+cached_qr_path = None
+
 @app.route('/generar_qr')
 def generar_qr():
-    data = "Datos que quieres en el QR - " + datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    global cached_qr_path
+    if cached_qr_path and os.path.exists(cached_qr_path):
+        return url_for('static', filename=f'pki/{os.path.basename(cached_qr_path)}')
+
+    data = "Datos QR - " + datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     qr = qrcode.QRCode(
         version=1,
         error_correction=qrcode.constants.ERROR_CORRECT_L,
-        box_size=10,
-        border=4,
+        box_size=8,  # Ajuste de tamaño para mejor visualización
+        border=2,
     )
     qr.add_data(data)
     qr.make(fit=True)
     img = qr.make_image(fill_color="black", back_color="white")
 
-    qr_filename = 'qr-{}.png'.format(datetime.now().strftime("%Y%m%d%H%M%S"))
-    qr_path = os.path.join('static', qr_filename)
-    img.save(qr_path)
+    # Crear directorio si no existe
+    pki_dir = os.path.join(basedir, 'static', 'pki')
+    if not os.path.exists(pki_dir):
+        os.makedirs(pki_dir)
 
-    return url_for('static', filename=qr_filename)
+    qr_filename = f'qr-{datetime.now().strftime("%Y%m%d%H%M%S")}.png'
+    cached_qr_path = os.path.join(pki_dir, qr_filename)
+    img.save(cached_qr_path)
 
-# Punto de inicio del tiempo cuando se lanza la aplicación
-inicio_tiempo = time.time()
+    return url_for('static', filename=f'pki/{qr_filename}')
 
-# Inicializar Dash en tu aplicación Flask
-dash_app = dash.Dash(__name__, server=app, url_base_pathname='/dash/')
+# Inicializar Dash en la aplicación Flask
+dash_app = Dash(__name__, server=app, url_base_pathname='/dash/')
 
-
-
-
-
-
-# Definir el layout de Dash
-dash_app.layout = html.Div([
-    # Componente de gráfica
-    dcc.Graph(id='senal-senoidal'),
-    # Componente de intervalo para actualización en tiempo real
-    dcc.Interval(
-        id='interval-component',
-        interval=100,  # en milisegundos
-        n_intervals=0
+dash_app.layout = html.Div(style={'textAlign': 'center', 'width': '90%', 'margin': 'auto'}, children=[
+    html.H1("Visualización de Señales en Tiempo Real", style={'fontSize': '32px'}),
+    dcc.Graph(
+        id='senal-senoidal',
+        style={'height': '500px', 'width': '100%'}
     ),
-    # Agregar una descripción debajo de la gráfica
-    html.Div([
-        html.P("Descripción de la Gráfica: Esta gráfica muestra una señal senoidal con ruido",
-               style={'fontSize': '18px'})
-    ], style={'textAlign': 'center', 'marginTop': '20px'})  # Ajusta el estilo según necesites
+    dcc.Interval(id='interval-component', interval=100, n_intervals=0),
+    html.P("Esta gráfica muestra una señal senoidal con ruido en tiempo real.",
+           style={'fontSize': '18px', 'marginTop': '20px'})
 ])
+
+# Cache del ruido para evitar regenerarlo en cada actualización
+cached_noise = np.random.normal(0, 0.2, 100)
 
 @dash_app.callback(
     Output('senal-senoidal', 'figure'),
@@ -122,35 +137,25 @@ dash_app.layout = html.Div([
 )
 def update_graph_live(n):
     tiempo = np.linspace(0, 10, 100)
-
-    # Cambia el desplazamiento para mover la gráfica hacia la izquierda
-    desplazamiento = n * 0.5  # Ajusta este valor para controlar la velocidad del desplazamiento
-
-    # Generar señal senoidal
+    desplazamiento = n * 0.5
     amplitud = np.sin(tiempo + desplazamiento)
+    amplitud_con_ruido = amplitud + cached_noise
 
-    # Generar ruido estocástico y sumarlo a la amplitud
-    ruido = np.random.normal(0, 0.2, tiempo.shape)  # Media 0, desviación estándar 0.2
-    amplitud_con_ruido = amplitud + ruido
     figura = {
-            'data': [{'x': tiempo, 'y': amplitud_con_ruido, 'type': 'line', 'name': 'Señal Senoidal con Ruido'}],
-            'layout': {
-                'title': 'Señal Senoidal en Tiempo Real con Ruido Estocástico',
-                'xaxis': {
-                    'showline': False,  # Ocultar la línea del eje X
-                    'zeroline': False  # Opcional: también oculta la línea en x=0 si es necesario
-                },
-                'yaxis': {
-                    'showline': False,  # Ocultar la línea del eje Y
-                    'zeroline': False  # Ocultar la línea en y=0
-                }
-            }
+        'data': [{'x': tiempo, 'y': amplitud_con_ruido, 'type': 'line', 'name': 'Señal Senoidal con Ruido'}],
+        'layout': {
+            'title': 'Señal Senoidal en Tiempo Real',
+            'xaxis': {'showline': True, 'zeroline': True},
+            'yaxis': {'showline': True, 'zeroline': True},
+            'height': 500
         }
+    }
     return figura
 
-
-
+with app.app_context():
+    db.create_all()
+    inicializar_celdas_vacias(5)
 
 if __name__ == '__main__':
-    app.run(debug=True)
-
+    debug_mode = os.getenv('FLASK_DEBUG', 'False').lower() in ['true', '1', 't']
+    app.run(debug=debug_mode, host='0.0.0.0')
