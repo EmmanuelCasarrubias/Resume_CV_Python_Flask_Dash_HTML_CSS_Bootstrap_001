@@ -1,0 +1,52 @@
+from flask import flash, redirect, url_for
+import numpy as np
+There is no duplicate import of numpy in your code. The code provided does not have any errors related to duplicate imports.
+
+The edit generati
+    Returns:
+        dict: Diccionario con los datos de la gráfica.
+    """
+    # Cambia el desplazamiento para mover la gráfica hacia la izquierda
+    desplazamiento = n * 0.5  # Ajusta este valor para controlar la velocidad del desplazamiento
+
+    # Generar señal senoidal
+    amplitud = np.sin(tiempo + desplazamiento)
+
+    # Generar ruido estocástico y sumarlo a la amplitud
+    ruido = np.random.normal(0, 0.2, tiempo.shape)  # Media 0, desviación estándar 0.2
+    amplitud_con_ruido = amplitud + ruido
+
+    # Definir la figura para la gráfica
+    figura = {
+        'data': [{'x': tiempo, 'y': amplitud_con_ruido, 'type': 'line', 'name': 'Señal Senoidal con Ruido'}],
+        'layout': {
+            'title': 'Señal Senoidal en Tiempo Real con Ruido Estocástico',
+            'xaxis': {
+                'showline': False,  # Ocultar la línea del eje X
+                'zeroline': False  # Ocultar la línea en x=0 si es necesario
+            },
+            'yaxis': {
+                'showline': False,  # Ocultar la línea del eje Y
+                'zeroline': False  # Ocultar la línea en y=0
+            }
+        }
+    }
+
+    return figura
+
+def verificar_celdas(Celda, inicializar_celdas_vacias):
+    """
+    Verifica si hay celdas en la base de datos. Si no hay, inicializa una nueva celda.
+
+    Args:
+        Celda (SQLAlchemy model): Modelo de la base de datos.
+        inicializar_celdas_vacias (function): Función para inicializar celdas.
+
+    Returns:
+        flask.redirect: Redirección a la vista principal.
+    """
+    if Celda.query.count() == 0:
+        inicializar_celdas_vacias(1)  # Si no quedan celdas, inicializar una vacía
+        flash('Celda no encontrada')
+
+    return redirect(url_for('cv'))
