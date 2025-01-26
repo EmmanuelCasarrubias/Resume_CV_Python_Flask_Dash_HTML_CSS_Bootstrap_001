@@ -1,19 +1,12 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, send_file
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+
 import os
-import qrcode
-from datetime import datetime
-import dash
-from dash import dcc, html
-from dash.dependencies import Input, Output
-import plotly.graph_objs as go
-import numpy as np
-import time
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'tu_clave_secreta_aqui'
 basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+database_path = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 db = SQLAlchemy(app)
 
 # Modelo para la tabla Celda
@@ -55,9 +48,9 @@ def add_celda():
             flash('Celda añadida con éxito')
     else:
         limite_alcanzado = True
-        flash('No se pueden añadir más de 8 elementos')
+        flash('Límite de celdas alcanzado. No se pueden añadir más celdas.')
 
-    return redirect(url_for('cv', limite=limite_alcanzado))
+    return redirect(url_for('cv'))
 
 @app.route('/eliminar_celda/<int:celda_id>', methods=['POST'])
 def eliminar_celda(celda_id):
